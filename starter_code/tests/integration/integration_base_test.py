@@ -12,7 +12,7 @@ from starter_code.db import db
 import os
 
 
-class BaseTest(TestCase):
+class IntegrationBaseTest(TestCase):
     def setUp(self) -> None:
         # make sure DB exists
         # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite///'
