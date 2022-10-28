@@ -1,11 +1,13 @@
 import os
 
-from flask import Flask
+from flask import Flask, jsonify
 from flask_restful import Api
-
+from flask_jwt import JWT, JWTError
+from security import identity, authenticate
 
 from starter_code.resources.store import Store, StoreList
 from starter_code.resources.item import Item, ItemList
+from starter_code.resources.user import UserRegister
 
 app = Flask(__name__)
 
@@ -15,11 +17,21 @@ app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:/
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 api = Api(app)
 
+app.secret_key = "jose123"
 
-api.add_resource(Store, '/store/<string:name>')
-api.add_resource(Item, '/item/<string:name>')
+# creates the /auth endpoint
+jwt = JWT(app, authenticate, identity)
 api.add_resource(ItemList, '/items')
+api.add_resource(Item, '/item/<string:name>')
+
 api.add_resource(StoreList, '/stores')
+api.add_resource(Store, '/store/<string:name>')
+
+api.add_resource(UserRegister, "/register")
+
+
+def auth_error_handler():
+    return jsonify({"message": "Unauthorized, please include an authorization header"}), 401
 
 
 if __name__ == '__main__':
