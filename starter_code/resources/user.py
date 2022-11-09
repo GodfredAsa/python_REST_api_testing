@@ -19,13 +19,10 @@ class UserRegister(Resource):
 
     def post(self):
         data = UserRegister.parser.parse_args()
-        print(data["password"])
         user = UserModel.find_by_name(data["username"])
-
         if user:
             return {"message": "User with {} all exists".format(data["username"])}, 400
         user = UserModel(**data)
-        print(user)
         user.save_to_db()
         print(user.password, " hashed ==>")
         return {"message": "User with username {} created successfully".format(data["username"])}, 201

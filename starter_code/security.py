@@ -1,4 +1,3 @@
-
 # from werkzeug.security import safe_str_cmp
 import bcrypt
 
