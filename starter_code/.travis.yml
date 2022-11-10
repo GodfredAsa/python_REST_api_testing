@@ -6,5 +6,5 @@ python:
 install:
   - "pip install pytest"
   - "pip install -r requirements.txt"
-# telling travis the tests/scripts to run
+# telling travis the tests/scripts to runs
 script: python -m pytest tests/
