@@ -19,6 +19,9 @@ class BaseTest(TestCase):
         # make sure DB exists
         # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite///'
         app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///')
+        app.config['DEBUG'] = False
+        #  propagate exceptions bubble exceptions thrown hierarchically
+        app.config['PROPAGATE-EXCEPTIONS'] = True
 
         with app.app_context():
             db.init_app(app)

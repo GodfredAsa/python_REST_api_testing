@@ -36,7 +36,7 @@ api.add_resource(Store, '/store/<string:name>')
 
 api.add_resource(UserRegister, "/register")
 
-
+# @app.errorhandler(JWT)
 def auth_error_handler():
     return jsonify({"message": "Unauthorized, please include an authorization header"}), 401
 
