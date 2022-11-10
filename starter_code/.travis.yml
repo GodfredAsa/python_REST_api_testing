@@ -1,0 +1,10 @@
+language: python
+python:
+  - "3.8"
+  - "nightly"
+# things to install to run the test
+install:
+  - "pip install pytest"
+  - "pip install -r requirements.txt"
+# telling travis the tests/scripts to run
+script: python -m pytest tests/
