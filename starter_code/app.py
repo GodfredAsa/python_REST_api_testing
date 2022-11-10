@@ -4,7 +4,7 @@ from flask import Flask, jsonify
 from flask_restful import Api
 from flask_jwt import JWT
 
-
+from starter_code.db import db
 from starter_code.resources.store import Store, StoreList
 from starter_code.resources.item import Item, ItemList
 from starter_code.resources.user import UserRegister
@@ -14,12 +14,8 @@ app = Flask(__name__)
 
 app.config['DEBUG'] = True
 
-# app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:////data.db')
-# app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
-file_path = os.path.abspath(os.getcwd()) + "/instance/data.db"
-
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + file_path
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///data.db')
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 
 api = Api(app)
@@ -42,7 +38,7 @@ def auth_error_handler():
 
 
 if __name__ == '__main__':
-    from db import db
+
 
     db.init_app(app)
 
